@@ -30,22 +30,35 @@ Cada carpeta corresponde a un ejercicio o miniproyecto e incluye, cuando aplica:
 
 ---
 
-## 🛠️ Tecnologías
+## 🛠️ Tecnologías y herramientas
 
-- Python 3
-- Jupyter Notebook
-- Visual Studio Code
-- Git & GitHub
+A lo largo de este curso trabajaré con tecnologías y herramientas utilizadas en el desarrollo Backend y la automatización con Python, entre ellas:
 
+- 🐍 Python 3
+- 💻 Visual Studio Code
+- 📓 Jupyter Notebook
+- 🌱 Git & GitHub
+- 🌐 REST APIs
+- ⚡ FastAPI
+- 🗄️ Bases de datos SQL
+- 🔗 Integración y consumo de APIs
+- 🤖 Selenium WebDriver
+- 🧪 Pytest
 ---
 
 ## 📖 Temas que estoy aprendiendo
 
 A medida que avance en el curso, este repositorio irá creciendo con ejercicios relacionados con:
-- Módulos y librerías
+- Sintaxis avanzada de Python
+- Funciones y programación modular
+- Manejo de archivos
+- Manejo de excepciones
+- Programación orientada a objetos (POO)
+- Módulos y paquetes
 - Buenas prácticas de programación
-- Desarrollo Backend.
-- Frameworks
+- Testing y depuración
+- Desarrollo Backend con Python
+- Frameworks para Backend
 
 ---
 
@@ -55,7 +68,7 @@ Creo que la mejor forma de aprender programación es **programando todos los dí
 
 Por eso he decidido publicar mi progreso en GitHub. Aquí no solo encontrarás soluciones finales, sino también el resultado de un proceso continuo de aprendizaje, experimentación y mejora.
 
-Cada commit representa un paso más hacia mi objetivo de convertirme en una profesional del análisis de datos y el desarrollo de software.
+Cada commit representa un paso más hacia mi objetivo de crecer como desarrolladora de software, fortaleciendo mis habilidades en Python, desarrollo Backend y análisis de datos.
 
 ---
 
@@ -64,11 +77,11 @@ Cada commit representa un paso más hacia mi objetivo de convertirme en una prof
 Estoy ampliando mis conocimientos en:
 
 - 🐍 Python
+- ⚙️ Desarrollo Backend
+- 🌐 Desarrollo Web
+- 🗄️ SQL
 - 📊 Análisis de Datos
 - 📈 Power BI
-- 🗄️ SQL
-- 📉 Excel
-- 🌐 Desarrollo Web
 
 ---
 
