@@ -8,7 +8,7 @@ class Task:
         self,
         nombre: str,
         descripcion: str,
-        fecha_limite: date,
+        fecha_limite: datetime,
         prioridad: str,
         terminada: bool = False,
         fecha_creacion: datetime | None = None,
