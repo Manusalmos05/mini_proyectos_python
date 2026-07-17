@@ -2,13 +2,14 @@ from datetime import date
 from models.task import Task
 from database.connection import DatabaseConnection
 from repository.task_repository import TaskRepository
+from ui.menu import menu, ejecutar_opcion
 
 
 def main():
     database = DatabaseConnection()
     repository = TaskRepository(database.get_connection())
     
-
+    
 
     tarea = Task(
 
@@ -20,12 +21,12 @@ def main():
     terminada=False
     )
 
-    id_generado = repository.add_task(tarea)
+    id_generado = repository.crear_tarea(tarea)
 
     print(f"Tarea creada con ID: {id_generado}")
 
 #listar las tareas
-    tareas = repository.get_all_tasks()
+    tareas = repository.listar_tareas()
 
     print(f"Se encontraron {len(tareas)} tareas.\n")
 

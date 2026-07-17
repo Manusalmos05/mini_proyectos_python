@@ -6,13 +6,15 @@ class Task:
 
     def __init__(
         self,
+        
         nombre: str,
         descripcion: str,
+        fecha_creacion: datetime,
         fecha_limite: datetime,
         prioridad: str,
         terminada: bool = False,
-        fecha_creacion: datetime | None = None,
-        task_id: int | None = None
+        task_id: int = None
+        
     ):
         self.id = task_id
         self.nombre = nombre

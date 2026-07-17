@@ -8,10 +8,10 @@ class TaskRepository:
     CRUD sobre la tabla tasks.
     """
 
-    def __init__(self, database):
-        self.connection = database.get_connection()
+    def __init__(self, connection):
+        self.connection = connection
 
-    def add_task(self, task: Task) -> int:
+    def crear_tarea(self, task: Task) -> int:
         """
         Guarda una nueva tarea en la base de datos.
 
@@ -23,7 +23,7 @@ class TaskRepository:
         """
 
         query = """
-            INSERT INTO tasks
+            INSERT INTO task
             (
                 nombre,
                 descripcion,
@@ -58,27 +58,27 @@ class TaskRepository:
 
         self.connection.commit()
 
-        task.id_task = cursor.lastrowid
+        task.id = cursor.lastrowid
 
         cursor.close()
 
-        return task.id_task
+        return task.id
 
-    def get_all_tasks(self) -> list[Task]:
+    def listar_tareas(self) -> list[Task]:
         """
         Devuelve todas las tareas almacenadas.
         """
 
         query = """
             SELECT
-                id
+                id,
                 nombre,
                 descripcion,
                 fecha_creacion,
                 fecha_limite,
                 prioridad,
                 terminada
-            FROM tasks
+            FROM task
             ORDER BY fecha_limite ASC
         """
 
@@ -108,15 +108,15 @@ class TaskRepository:
 
         return tareas
 
-    def get_task_by_id(self, task_id: int) -> Task | None:
+    def buscar_tarea_id(self, task_id: int) -> Task | None:
         """
         Busca una tarea por su ID.
         """
 
         query = """
             SELECT *
-            FROM tasks
-            WHERE id_task = %s
+            FROM task
+            WHERE id= %s
         """
 
         cursor = self.connection.cursor(dictionary=True)
@@ -140,13 +140,13 @@ class TaskRepository:
             terminada=bool(fila["terminada"])
         )
 
-    def update_task(self, task: Task) -> bool:
+    def actualizar_tarea(self, task: Task) -> bool:
         """
         Actualiza una tarea existente.
         """
 
         query = """
-            UPDATE tasks
+            UPDATE task
             SET
                 nombre = %s,
                 descripcion = %s,
@@ -154,7 +154,7 @@ class TaskRepository:
                 fecha_limite = %s,
                 prioridad = %s,
                 terminada = %s
-            WHERE id_task = %s
+            WHERE id = %s
         """
 
         valores = (
@@ -164,7 +164,7 @@ class TaskRepository:
             task.fecha_limite,
             task.prioridad,
             task.terminada,
-            task.id_task
+            task.id
         )
 
         cursor = self.connection.cursor()
@@ -179,14 +179,14 @@ class TaskRepository:
 
         return actualizado
 
-    def delete_task(self, task_id: int) -> bool:
+    def borrar_tarea(self, task_id: int) -> bool:
         """
         Elimina una tarea.
         """
 
         query = """
-            DELETE FROM tasks
-            WHERE id_task = %s
+            DELETE FROM task
+            WHERE id = %s
         """
 
         cursor = self.connection.cursor()
@@ -201,15 +201,15 @@ class TaskRepository:
 
         return eliminado
 
-    def mark_completed(self, task_id: int) -> bool:
+    def marcar_tarea_terminada(self, task_id: int) -> bool:
         """
         Marca una tarea como terminada.
         """
 
         query = """
-            UPDATE tasks
+            UPDATE task
             SET terminada = TRUE
-            WHERE id_task = %s
+            WHERE id = %s
         """
 
         cursor = self.connection.cursor()
