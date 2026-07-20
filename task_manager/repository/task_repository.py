@@ -1,7 +1,5 @@
 from models.task import Task
 
-
-
 class TaskRepository:
     """
     Repositorio encargado de realizar todas las operaciones
@@ -140,44 +138,6 @@ class TaskRepository:
             terminada=bool(fila["terminada"])
         )
 
-    def actualizar_tarea(self, task: Task) -> bool:
-        """
-        Actualiza una tarea existente.
-        """
-
-        query = """
-            UPDATE task
-            SET
-                nombre = %s,
-                descripcion = %s,
-                fecha_creacion = %s,
-                fecha_limite = %s,
-                prioridad = %s,
-                terminada = %s
-            WHERE id = %s
-        """
-
-        valores = (
-            task.nombre,
-            task.descripcion,
-            task.fecha_creacion,
-            task.fecha_limite,
-            task.prioridad,
-            task.terminada,
-            task.id
-        )
-
-        cursor = self.connection.cursor()
-
-        cursor.execute(query, valores)
-
-        self.connection.commit()
-
-        actualizado = cursor.rowcount > 0
-
-        cursor.close()
-
-        return actualizado
 
     def borrar_tarea(self, task_id: int) -> bool:
         """

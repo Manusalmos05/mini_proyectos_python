@@ -1,6 +1,5 @@
 from datetime import datetime
 
-
 class Task:
     """Clase que representa una tarea en el sistema de gestión de tareas."""
 
@@ -19,7 +18,7 @@ class Task:
         self.id = task_id
         self.nombre = nombre
         self.descripcion = descripcion
-        self.fecha_creacion = fecha_creacion or datetime.now()
+        self.fecha_creacion = fecha_creacion
         self.fecha_limite = fecha_limite
         self.prioridad = prioridad
         self.terminada = terminada
@@ -35,6 +34,7 @@ class Task:
 
         return (
             f"{status} "
-            f"{self.nombre} "
-            f"({self.prioridad})"
+            f"id: {self.id} "
+            f"nombre: {self.nombre}-->"
+            f"Prioridad: {self.prioridad}"
         )

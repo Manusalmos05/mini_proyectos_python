@@ -1,8 +1,6 @@
 from models.task import Task
 from repository.task_repository import TaskRepository
-from datetime import date
-
-
+from datetime import datetime
 
 class TaskService:
     """
@@ -11,6 +9,8 @@ class TaskService:
     Se encarga de aplicar la lógica de negocio y de
     comunicarse con el repositorio.
     """
+    #opciones permitidas para la prioridad de la tarea
+    PRIORIDADES_VALIDAS = ("Alta", "Media", "Baja")
 
     def __init__(self, repository: TaskRepository):
         self.repository = repository
@@ -20,25 +20,23 @@ class TaskService:
         Crea una nueva tarea.
         Valida las opciones de la tarea antes de enviarla al repositorio.
         """
-        #opciones permitidas para la prioridad de la tarea
-        PRIORIDADES_VALIDAS = ("Alta", "Media", "Baja")
-        task.prioridad = task.prioridad.strip().capitalize()
-
-
         #normalizaciones de texto en nombre y descripcion de la tarea
         task.nombre = task.nombre.strip()
         task.descripcion = task.descripcion.strip()
-
+        
+        task.prioridad = task.prioridad.strip().capitalize()
 
         #logica de validacion de la tarea
         if not task.nombre:
             raise ValueError("El nombre de la tarea es obligatorio.")
         if task.fecha_limite is None:
             raise ValueError("Debe indicar una fecha límite.")
-        if task.prioridad not in PRIORIDADES_VALIDAS:
+        if task.prioridad not in self.PRIORIDADES_VALIDAS:
             raise ValueError("La prioridad debe ser Alta, Media o Baja.")
-        if task.fecha_limite < date.today():
+        if task.fecha_limite < datetime.today():
             raise ValueError("La fecha límite no puede ser anterior a hoy.")
+        if task.fecha_limite < task.fecha_creacion:
+            raise ValueError("La fecha límite no puede ser anterior a la fecha de creación.")
         
         
         return self.repository.crear_tarea(task)
@@ -67,11 +65,6 @@ class TaskService:
 
         return tarea
 
-    def actualizar_tarea(self, task: Task) -> bool:
-        """
-        Actualiza una tarea.
-        """
-        self.buscar_tarea_id(task.id)
 
     def borrar_tarea(self, task_id: int) -> bool:
         """
