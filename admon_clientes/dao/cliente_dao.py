@@ -45,7 +45,7 @@ class ClienteDAO:
             valores=(cliente.nombre, cliente.apellido, cliente.membresia)
             cursor.execute(cls.INSERTAR, valores)
             conexion.commit()
-            return cursor.rowcount()
+            return cursor.rowcount
         except Exception as e:
             print(f'Ocurrio un error al insertar los datos: {e}')
 
@@ -54,3 +54,41 @@ class ClienteDAO:
                 cursor.close()
                 Conexion.liberar_conexion(conexion)
 
+
+    @classmethod
+    def actualizar(cls, cliente):
+        conexion= None
+
+        try:
+            conexion=Conexion.obtener_conexion()
+            cursor=conexion.cursor()
+            valores=(cliente.nombre, cliente.apellido, cliente.membresia,cliente.id)
+            cursor.execute(cls.ACTUALIZAR, valores)
+            conexion.commit()
+            return cursor.rowcount
+        except Exception as e:
+            print(f'Ocurrio un error al actualizar los datos: {e}')
+
+        finally:
+            if conexion is not None:
+                cursor.close()
+                Conexion.liberar_conexion(conexion)
+
+    @classmethod
+    def eliminar(cls, cliente):
+        conexion= None
+
+        try:
+            conexion=Conexion.obtener_conexion()
+            cursor=conexion.cursor()
+            id=(cliente.id,)
+            cursor.execute(cls.ELIMINAR, id)
+            conexion.commit()
+            return cursor.rowcount
+        except Exception as e:
+            print(f'Ocurrio un error al eliminar los datos: {e}')
+
+        finally:
+            if conexion is not None:
+                cursor.close()
+                Conexion.liberar_conexion(conexion)
