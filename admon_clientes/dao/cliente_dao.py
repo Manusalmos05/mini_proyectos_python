@@ -1,6 +1,6 @@
 from mysql.connector import Error
-from admon_clientes.database.conexion import Conexion
-from admon_clientes.models.cliente import Cliente
+from database.conexion import Conexion
+from models.cliente import Cliente
 
 class ClienteDAO:
     SELECCIONAR='SELECT * FROM cliente ORDER BY id'
@@ -35,7 +35,22 @@ class ClienteDAO:
                 Conexion.liberar_conexion(conexion)
 
 
-if __name__=='__main__':
-    clientes=ClienteDAO.seleccionar()
-    for cliente in clientes:
-        print(cliente)
+    @classmethod
+    def insertar(cls, cliente):
+        conexion= None
+
+        try:
+            conexion=Conexion.obtener_conexion()
+            cursor=conexion.cursor()
+            valores=(cliente.nombre, cliente.apellido, cliente.membresia)
+            cursor.execute(cls.INSERTAR, valores)
+            conexion.commit()
+            return cursor.rowcount()
+        except Exception as e:
+            print(f'Ocurrio un error al insertar los datos: {e}')
+
+        finally:
+            if conexion is not None:
+                cursor.close()
+                Conexion.liberar_conexion(conexion)
+
