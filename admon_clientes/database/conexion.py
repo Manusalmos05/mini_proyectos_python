@@ -37,17 +37,9 @@ class Conexion:
 
     @classmethod
     def obtener_conexion(cls):
-        return cls.obtener_pool.get_connection()
+        return cls.obtener_pool().get_connection()
 
     @classmethod
     def liberar_conexion(cls, conexion):
         conexion.close()
 
-
-if __name__=='__main__':
-    pool=Conexion.obtener_pool()
-    print(pool)
-
-    conexion1=pool.get_connection()
-    print(conexion1)
-    Conexion.liberar_conexion(conexion1)
