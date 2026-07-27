@@ -1,5 +1,3 @@
-![Uploading ChatGPT Image 27 jul 2026, 11_25_47.png…]()
-
 # 📋 Task Manager
 
 ## Sobre el proyecto
