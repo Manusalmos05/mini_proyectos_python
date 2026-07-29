@@ -18,7 +18,7 @@ class Producto(Base):
     precio=Column(Float)
     en_stock= Column(Boolean, default=True)
     categoria_id=Column(Integer, ForeignKey("categorias.id"))
-    categoria=relationship("Categoria", back_populates="productos")
+    categorias=relationship("Categoria", back_populates="productos")
 
 
 
