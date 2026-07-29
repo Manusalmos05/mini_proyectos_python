@@ -40,8 +40,12 @@ class Usuariocreate(UsuarioBase):
     es_admin: bool=False
 
 
-class UsuarioRespons(UsuarioBase):
+class UsuarioResponse(UsuarioBase):
     id:int
     es_admin: bool= False
     class Config:
         orm_mode=True
+
+class Token (BaseModel):
+    access_token: str
+    token_type=str= "bearer"

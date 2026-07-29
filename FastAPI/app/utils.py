@@ -10,5 +10,5 @@ def hash_password(password:str):
     return pwd_context.hash(password)
 
 
-def varificar_password(password:str, hashed:str):
+def verificar_password(password:str, hashed:str):
     return pwd_context.verify(password, hashed)
