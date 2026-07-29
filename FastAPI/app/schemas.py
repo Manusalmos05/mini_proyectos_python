@@ -13,3 +13,15 @@ class ProductoResponse(ProductoCreate):
     id:int
     class Config:
         orm_mod=True
+
+
+class CategoriaBase(BaseModel):
+    nombre: str
+
+class CategoriaCreate(CategoriaBase):
+    pass 
+
+class CategoriaResponse(CategoriaBase):
+    id: int
+    class Config:
+        orm_mode=True
