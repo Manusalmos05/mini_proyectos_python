@@ -1,6 +1,7 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
+### productos ###
 
 class ProductoCreate(BaseModel):
     nombre: str
@@ -13,7 +14,7 @@ class ProductoResponse(ProductoCreate):
     id:int
     class Config:
         orm_mod=True
-
+### categoria ###
 
 class CategoriaBase(BaseModel):
     nombre: str
@@ -23,5 +24,24 @@ class CategoriaCreate(CategoriaBase):
 
 class CategoriaResponse(CategoriaBase):
     id: int
+    class Config:
+        orm_mode=True
+
+
+### usuario ###
+
+class UsuarioBase(BaseModel):
+    nombre:str
+    email: EmailStr
+
+
+class Usuariocreate(UsuarioBase):
+    password: str
+    es_admin: bool=False
+
+
+class UsuarioRespons(UsuarioBase):
+    id:int
+    es_admin: bool= False
     class Config:
         orm_mode=True
