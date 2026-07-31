@@ -1,12 +1,9 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 import crud as crud, schemas as schemas
 from database import get_db
-from fastapi.security import OAuth2PasswordRequestForm
-from utils import verificar_password
-from auth import crear_token
-from deps import get_current_user, require_admin
+from deps import require_admin
 
 
 
@@ -26,7 +23,7 @@ def listar_productos(db:Session=Depends(get_db)):
 
 
 
-@app.post("/productos", response_model=schemas.ProductoCreate)
+@app.post("/productos", response_model=schemas.ProductoCreate, dependencies=[Depends(require_admin)])
 def create_producto(producto: schemas.ProductoCreate, db:Session=Depends(get_db)):
     return crud.crear_producto(db, producto)
 
@@ -59,30 +56,3 @@ def lista_categorias(db:Session=Depends(get_db)):
 def create_categoria(categoria:schemas.CategoriaCreate, db:Session=Depends(get_db)):
     return crud.crear_categoria(db, categoria)
 
-### usuarios ###
-
-
-@app.post("/usuarios", response_model=schemas.UsuarioResponse, status_code=status.HTTP_201_CREATED)
-def registar_usuario(usuario:schemas.Usuariocreate, db:Session=Depends(get_db)):
-    try:
-        return crud.crear_usuario(db, usuario)
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-@app.post("/login", response_model=schemas.Token)
-def login(form_data:OAuth2PasswordRequestForm=Depends(), db: Session=Depends(get_db)):
-    user=crud.obtener_usuario_por_email(db, form_data.username)
-    if not user or not verificar_password(form_data.password, user.hashed_password):
-        raise HTTPException(status_code=401, detail="Credenciales Invalidas")
-
-    token= crear_token(sub=user.email, es_admin=user.es_admin)
-    return {"access_token": token, "token_type": "bearer"}
-
-@app.get("/usuarios/me", response_model=schemas.UsuarioResponse)
-def leer_perfil(current_user= Depends(get_current_user)):
-    return current_user
-
-
-@app.get("/admin/ping")
-def admin_ping(_admin=Depends(require_admin)):
-    return{"Ok": True, "role": "admin"}

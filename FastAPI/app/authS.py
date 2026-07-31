@@ -18,14 +18,14 @@ def crear_token(sub:str, es_admin: bool):
         "es_admin": es_admin
     }
 
-    token=jwt.encode(data, os.getenv("SECRET_KEY"), algorithm=os.getenv("ALGORITHM"))
+    token=jwt.encode(data, os.getenv("SECRET_KEY"), algorithm="HS256")
     return token
     
 
 
 def verificar_token(token:str):
     try:
-        payload=jwt.decode(token, os.getenv("SECRET_KEY"), algorithms=[os.getenv("ALGORITHM")])
+        payload=jwt.decode(token, os.getenv("SECRET_KEY"), algorithms=["HS256"])
         return payload
 
     except JWTError: 

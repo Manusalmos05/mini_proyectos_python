@@ -3,7 +3,7 @@ from fastapi import Depends, HTTPException, status
 from jose import JWTError
 from sqlalchemy.orm import Session
 from database import SessionLocal, get_db
-from auth import verificar_token
+from app.authS import verificar_token
 import crud
 
 
@@ -35,7 +35,7 @@ def get_current_user(token:str= Depends(oauth2_scheme),
     return user
 
 
-def require_admin(current_user= Depends(get_db)):
+def require_admin(current_user= Depends(get_current_user)):
     if not current_user.es_admin:
         raise HTTPException(status_code=403, detail="No autorizado, solo admins")
 
