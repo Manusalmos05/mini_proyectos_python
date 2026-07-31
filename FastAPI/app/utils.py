@@ -2,7 +2,7 @@ from passlib.context import CryptContext
 
 ### hasheo de contraseñas ###
 
-pwd_context=CryptContext(schemes=["bcrypt"], deprecate="auto")
+pwd_context=CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 

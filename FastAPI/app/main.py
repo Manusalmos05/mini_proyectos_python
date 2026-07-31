@@ -20,8 +20,6 @@ class Producto(BaseModel):
 
 
 
-
-
 @app.get("/productos", response_model=list[schemas.ProductoResponse])
 def listar_productos(db:Session=Depends(get_db)):
     return crud.obtener_productos(db)
@@ -33,7 +31,6 @@ def create_producto(producto: schemas.ProductoCreate, db:Session=Depends(get_db)
     return crud.crear_producto(db, producto)
 
     
-
 @app.put("/productos/{id}",  response_model=schemas.ProductoCreate)
 def actualizar_producto(producto_id: int, datos:schemas.ProductoCreate, db:Session=Depends(get_db)):
     producto=crud.actualizar_producto(db,producto_id,datos)

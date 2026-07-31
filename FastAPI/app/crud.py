@@ -64,18 +64,17 @@ def obtener_usuario_por_id(db:Session, usuario_id:int)-> Usuario | None:
 def crear_usuario(db:Session, usuario: Usuariocreate)-> Usuario:
     existe=db.query(Usuario).filter(
         or_(Usuario.email==usuario.email, Usuario.nombre== usuario.nombre)
-    ).first
+    ).first()
 
-    if not existe:
-        db_usuario=Usuario(
-        nombre=usuario.nombre,
-        email=usuario.email,
-        hash_password=hash_password(usuario.password),
-        es_admin= usuario.es_admin
-        )
-        db.add(db_usuario)
-        db.commit()
-        db.refresh(db_usuario)
-        return db_usuario
-    else:
-        return ValueError("Ya existe un usuario con ese email o nombre")
+    if existe:
+       raise ValueError("Ya existe un usuario con ese email o nombre")
+    db_usuario=Usuario(
+            nombre=usuario.nombre,
+            email=usuario.email,
+            hashed_password=hash_password(usuario.password),
+            es_admin= usuario.es_admin
+            )
+    db.add(db_usuario)
+    db.commit()
+    db.refresh(db_usuario)
+    return db_usuario
