@@ -1,11 +1,13 @@
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
+from passlib.context import CryptContext
 import os
 from dotenv import load_dotenv
 
 load_dotenv() 
 
-## prueba ##
+
+pwd_context=CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def crear_token(sub:str, es_admin: bool):
@@ -32,3 +34,14 @@ def verificar_token(token:str):
         return None
 
     
+
+
+### hasheo de contraseñas ###
+
+
+def hash_password(password:str):
+    return pwd_context.hash(password)
+
+
+def verificar_password(password:str, hashed:str):
+    return pwd_context.verify(password, hashed)

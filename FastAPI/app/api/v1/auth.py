@@ -1,12 +1,10 @@
 from fastapi import APIRouter
 import crud, schemas
 from fastapi import Depends, HTTPException, status
-from database import get_db
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm
-from utils import verificar_password
-from deps import get_current_user, require_admin
-from app.authS import crear_token
+from deps.deps import get_current_user, require_admin, get_db
+from core.security import crear_token
 
 api_router=APIRouter()
 
