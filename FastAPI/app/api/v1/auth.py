@@ -12,9 +12,6 @@ from crud.usuario import crear_usuario, obtener_usuario_por_email
 api_router=APIRouter()
 
 
-
-
-
 @api_router.post("/usuarios", response_model=UsuarioResponse, status_code=status.HTTP_201_CREATED)
 def registar_usuario(usuario:Usuariocreate, db:Session=Depends(get_db)):
     try:
