@@ -1,4 +1,4 @@
-from schemas import CategoriaCreate
+from schemas.categoria import CategoriaCreate
 from sqlalchemy.orm import Session
 from models.categoria import Categoria
 

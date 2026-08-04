@@ -1,4 +1,4 @@
-from schemas import ProductoCreate
+from schemas.producto import ProductoCreate
 from sqlalchemy.orm import Session
 from models.producto import Producto
 

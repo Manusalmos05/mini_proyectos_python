@@ -3,8 +3,8 @@ from fastapi import Depends, HTTPException, status
 from jose import JWTError
 from sqlalchemy.orm import Session
 from db.database import SessionLocal
-from app.authS import verificar_token
-import crud
+from core.security import verificar_token
+from crud.usuario import obtener_usuario_por_email
 
 
 oauth2_scheme=OAuth2PasswordBearer(tokenUrl="login")
@@ -37,7 +37,7 @@ def get_current_user(token:str= Depends(oauth2_scheme),
     except JWTError: 
         raise cred_exc
 
-    user=crud.obtener_usuario_por_email(db, email)
+    user=obtener_usuario_por_email(db, email)
     if user is None:
         raise cred_exc
     return user

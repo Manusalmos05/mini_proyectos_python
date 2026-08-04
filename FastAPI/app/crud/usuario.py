@@ -1,4 +1,4 @@
-from schemas import Usuariocreate
+from schemas.usuario import Usuariocreate
 from sqlalchemy.orm import Session
 from models.usuario import Usuario
 from sqlalchemy import or_
