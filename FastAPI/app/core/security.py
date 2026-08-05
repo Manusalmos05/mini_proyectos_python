@@ -1,11 +1,9 @@
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 from passlib.context import CryptContext
-import os
-from dotenv import load_dotenv
-from config import settings
+from core.config import settings
 
-load_dotenv() 
+
 
 
 pwd_context=CryptContext(schemes=["bcrypt"], deprecated="auto")
