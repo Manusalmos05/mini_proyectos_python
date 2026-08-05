@@ -6,12 +6,12 @@ from datetime import datetime
 
 
 class Carrito(Base):
-    __tablename__ = "carrito"
+    __tablename__ = "carritos"
 
     id = Column(Integer, primary_key=True, index=True)
     usuario_id = Column(Integer, ForeignKey("usuarios.id"))
-    usuario = relationship("Usuario", back_populates="carrito")
-    items = relationship("ItemCarrito", back_populates="carrito", cascade="all, delete")
+    usuario = relationship("Usuario", back_populates="carritos")
+    items = relationship("ItemCarrito", back_populates="carritos", cascade="all, delete")
 
 
 
@@ -31,7 +31,7 @@ class Pedido(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     usuario_id = Column(Integer, ForeignKey("usuarios.id"))
-    fecha = Column(DateTime, default=datetime.now.utcnow)
+    fecha = Column(DateTime, default=datetime.now())
     total = Column(Float)
     detalles=relationship("DetallePedido", back_populates="pedido", cascade="all, delete")
 
@@ -42,7 +42,7 @@ class DetallePedido(Base):
     pedido_id = Column(Integer, ForeignKey("pedidos.id"))
     producto_id = Column(Integer, ForeignKey("productos.id"))
     cantidad = Column(Integer)
-    precio_unitario = Column(Float)
+    subtotal = Column(Float)
     pedido = relationship("Pedido", back_populates="detalles")
     producto = relationship("Producto")
    
