@@ -28,3 +28,11 @@ def agregar_item(
         db.commit()
         db.refresh(item)
         return item
+
+
+def eliminar_item(db: Session, item_id: int):
+    item=db.query(ItemCarrito).get(item_id)
+    if item:
+        db.delete(item)
+        db.commit()
+       
