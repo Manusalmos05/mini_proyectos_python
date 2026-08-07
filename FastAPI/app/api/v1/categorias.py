@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from deps.deps import get_db
 from crud.categoria import obtener_categorias, crear_categoria
-from schemas.categoria import CategoriaCreate, CategoriaResponse
+from schemas.categoria import CategoriaResponse, CategoriaCreate
 
 api_router = APIRouter()
 
