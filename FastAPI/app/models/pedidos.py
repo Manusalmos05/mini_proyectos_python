@@ -10,8 +10,8 @@ class Carrito(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     usuario_id = Column(Integer, ForeignKey("usuarios.id"))
-    usuario = relationship("Usuario", back_populates="carritos")
-    items = relationship("ItemCarrito", back_populates="carritos", cascade="all, delete")
+    usuario = relationship("Usuario", back_populates="carrito")
+    items = relationship("ItemCarrito", back_populates="carrito", cascade="all, delete")
 
 
 
