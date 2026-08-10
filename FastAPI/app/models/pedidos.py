@@ -31,7 +31,7 @@ class Pedido(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     usuario_id = Column(Integer, ForeignKey("usuarios.id"))
-    fecha = Column(DateTime, default=datetime.now())
+    fecha = Column(DateTime, default=datetime.now)
     total = Column(Float)
     detalles=relationship("DetallePedido", back_populates="pedido", cascade="all, delete")
 

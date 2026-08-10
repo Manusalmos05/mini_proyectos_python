@@ -7,7 +7,7 @@ from core.security import verificar_token
 from crud.usuario import obtener_usuario_por_email
 
 
-oauth2_scheme=OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
+oauth2_scheme=OAuth2PasswordBearer(tokenUrl="api/v1/auth/login")
 
 
 def get_db():

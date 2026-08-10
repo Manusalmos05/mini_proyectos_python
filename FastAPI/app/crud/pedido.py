@@ -4,7 +4,7 @@ from models.pedidos import Pedido, Carrito, DetallePedido
 
 
 def crear_pedido(db: Session, usuario_id: int):
-    carrito=db.query(Carrito).filter(usuario_id=usuario_id).first()
+    carrito=db.query(Carrito).filter(Carrito.usuario_id==usuario_id).first()
     if not carrito or not carrito.items:
         raise ValueError("El carrito está vacío o no existe")
     total=0
