@@ -10,18 +10,18 @@ api_router = APIRouter()
 
 
 
-@api_router.get("/productos", response_model=list[ProductoResponse])
+@api_router.get("/productos", summary="obtener producto", response_description="producto mostrado correctamente", response_model=list[ProductoResponse])
 def listar_productos(db:Session=Depends(get_db)):
     return obtener_productos(db)
 
 
 
-@api_router.post("/productos", response_model=ProductoCreate, dependencies=[Depends(require_admin)])
+@api_router.post("/productos", summary="crear producto", response_description="producto creado correctamente", response_model=ProductoCreate, dependencies=[Depends(require_admin)])
 def create_producto(producto: ProductoCreate, db:Session=Depends(get_db)):
     return crear_producto(db, producto)
 
     
-@api_router.put("/productos/{id}",  response_model=ProductoCreate)
+@api_router.put("/productos/{id}",summary="actualizar producto", response_description="producto actualizado correctamente",  response_model=ProductoCreate)
 def actualizar_producto(producto_id: int, datos:ProductoCreate, db:Session=Depends(get_db)):
     producto=actualizar_producto(db,producto_id,datos)
     if not producto:
@@ -29,7 +29,7 @@ def actualizar_producto(producto_id: int, datos:ProductoCreate, db:Session=Depen
     return producto
    
 
-@api_router.delete("/productos/{id}")
+@api_router.delete("/productos/{id}",summary="eliminar producto", response_description="producto eliminado correctamente")
 def eliminar(producto_id:int, db: Session=Depends(get_db)):
     producto=eliminar_producto(db, producto_id)
     if not producto:

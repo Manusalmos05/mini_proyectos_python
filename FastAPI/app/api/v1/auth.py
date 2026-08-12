@@ -12,7 +12,7 @@ from crud.usuario import crear_usuario, obtener_usuario_por_email
 api_router=APIRouter()
 
 
-@api_router.post("/usuarios", response_model=UsuarioResponse, status_code=status.HTTP_201_CREATED)
+@api_router.post("/usuarios", summary="registro de usuario", response_description="usuario registrado correctamente", response_model=UsuarioResponse, status_code=status.HTTP_201_CREATED)
 def registar_usuario(usuario:Usuariocreate, db:Session=Depends(get_db)):
     try:
         return crear_usuario(db, usuario)
@@ -28,7 +28,7 @@ def login(form_data:OAuth2PasswordRequestForm=Depends(), db: Session=Depends(get
     token= crear_token(sub=user.email, es_admin=user.es_admin)
     return {"access_token": token, "token_type": "bearer"}
 
-@api_router.get("/usuarios/me", response_model=UsuarioResponse)
+@api_router.get("/usuarios/me", summary="obtener info usuario", response_description="perfil leido correctamente", response_model=UsuarioResponse)
 def leer_perfil(current_user= Depends(get_current_user)):
     return current_user
 

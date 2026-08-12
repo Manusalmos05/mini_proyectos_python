@@ -7,12 +7,12 @@ from schemas.categoria import CategoriaResponse, CategoriaCreate
 api_router = APIRouter()
 
 
-@api_router.get("/categorias",response_model=list[CategoriaResponse])
+@api_router.get("/categorias",summary="obtener categoria", response_description="categoria mostrada correctamente",response_model=list[CategoriaResponse])
 def lista_categorias(db:Session=Depends(get_db)):
     return obtener_categorias(db)
 
 
 
-@api_router.post("/categorias", response_model=CategoriaResponse)
+@api_router.post("/categorias", summary="crear categoria", response_description="categoria creada correctamente",response_model=CategoriaResponse)
 def create_categoria(categoria:CategoriaCreate, db:Session=Depends(get_db)):
     return crear_categoria(db, categoria)
