@@ -12,11 +12,11 @@ from models.producto import Producto
 
 client= TestClient(app)
 #token usuario admin
-token="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJoZXJhQGV4YW1wbGUuY29tIiwiZXhwIjoxNzg2ODEyNTk0LCJlc19hZG1pbiI6dHJ1ZX0.DcrfQa4o-GHZPP1Z-oxAcnewgVtJR34U3MgAwrRW8wA"
+token="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJoZXJhQGV4YW1wbGUuY29tIiwiZXhwIjoxNzg2ODE0NDM5LCJlc19hZG1pbiI6dHJ1ZX0.WATDHfLPu528KtDavCljepKlQVdyNgUw_5aLE-YWKac"
 
 def test_crear_producto_exito():
     data={
-        "nombre": "radio",
+        "nombre": "proyector",
         "precio": 45,
         "stock":20,
         "en_stock": True,
@@ -54,7 +54,7 @@ def test_listar_productos():
 
 def test_eliminar_producto():
     db=SessionLocal()
-    producto_existente=db.query(Producto).filter(Producto.id==15).first()
+    producto_existente=db.query(Producto).filter(Producto.id==17).first()
     id_producto=producto_existente.id
     db.close()
     response=client.delete(f"/api/v1/productos/productos/{id_producto}?producto_id={id_producto}")
