@@ -17,7 +17,7 @@ def obtener_productos(db:Session):
 def obtener_producto(db:Session, producto_id: int):
     return db.query(Producto).filter(Producto.id==producto_id).first()
 
-def actualizar_producto(db:Session, producto_id: int, datos: ProductoCreate):
+def actualizacion_producto(db:Session, producto_id: int, datos: ProductoCreate):
     producto= obtener_producto(db, producto_id)
 
     if producto:
