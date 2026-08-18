@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from api.v1.api import api_router
+from fastapi.responses import HTMLResponse
 
 
 
@@ -10,7 +11,7 @@ app=FastAPI(
     description="""
         API RESTful completa para la gestion de in E-commerce
         funcionalidades:
-        - autenticacion con Jwt
+        - Autenticacion con Jwt
         -Administración de productos y categorias
         -Carrito de compras
         -Gestión de pedidos
@@ -27,6 +28,12 @@ app=FastAPI(
     }
 
 )
+@app.get('/', tags=['inicio'])
+def read_root():
+    return HTMLResponse('<h2> Esta es mi primera API con FASTAPI </h2>')
+
+
+
 
 app.include_router(api_router, prefix="/api/v1")
 
