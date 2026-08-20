@@ -5,9 +5,9 @@ from pydantic import BaseModel, constr, field_validator
 import helpers
 
 class ModeloCliente(BaseModel):
-    dni: str=constr(min_length=3, max_length=3)
-    nombre: str=constr(min_length=2, max_length=30)
-    apellido:str=constr(min_length=2, max_length=30)
+    dni: constr(min_length=3, max_length=3)
+    nombre: constr(min_length=2, max_length=30)
+    apellido: constr(min_length=2, max_length=30)
 
 
 class ModeloCrearCliente(ModeloCliente):
@@ -19,52 +19,44 @@ class ModeloCrearCliente(ModeloCliente):
 
 
 headers={"content-type":"charset=utf-8"}
+app=FastAPI(
+    title= "Api de gestion de clientes",
+    description="Permite, crear, borrar, actualizar, buscar clientes en una ddbb realizada sobre csv con funciones en Python"
+)
 
-app = FastAPI()
-@app.get("/")
-async def index():
-    content={
-        "mensaje": "mi segunda api"
-    }
-    return JSONResponse(content=content, headers=headers, media_type="aplication/json")
-
-@app.get("/html/")
-async def html():
-    content="""
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>¡Hola mundo!</title>
-    </head>
-    <body>
-        <h1>¡Hola mundo!</h1>
-    </body>
-    </html>
-    """
-    return Response(content=content,media_type="text/html")
-
-@app.get("/clientes")
+@app.get("/clientes", tags=["clientes"])
 async def clientes():
     content=[cliente.to_dict() for cliente in db.Clientes.lista]
     return JSONResponse(content=content, headers=headers)
 
-@app.get("/clientes/buscar/{dni}")
+@app.get("/clientes/buscar/{dni}", tags=["clientes"])
 async def clientes_buscar(dni:str):
     cliente=db.Clientes.buscar(dni=dni)
     if cliente is None:
         raise HTTPException(status_code=404, detail="No existe este cliente")
     return JSONResponse(content=cliente.to_dict(), headers=headers)
 
-@app.post("/clientes/crear/")
+@app.post("/clientes/crear/", tags=["clientes"])
 async def clientes_crear(datos: ModeloCrearCliente):
     cliente=db.Clientes.crear(datos.dni, datos.nombre, datos.apellido)
     if cliente:
         return JSONResponse(content=cliente.to_dict(), headers=headers)
     raise HTTPException(status_code=401, details="cliente no creado")
 
+@app.put("/clientes/actualizar/", tags=["clientes"])
+async def clientes_actualizar(datos:ModeloCliente):
+    if db.Clientes.buscar(datos.dni):
+        cliente=db.Clientes.modificar(datos.dni, datos.nombre,datos.apellido)
+        if cliente:
+            return JSONResponse(content=cliente.to_dict(), headers=headers)
+    raise HTTPException(status_code=404, detail="cliente no encontrado")
 
-
+@app.delete("/clientes/eliminar/{dni}/",  tags=["clientes"])
+async def clientes_eliminar(dni:str):
+    if db.Clientes.buscar(dni=dni):
+        cliente=db.Clientes.borrar(dni=dni)
+        return JSONResponse(content=cliente.to_dict(), headers=headers)
+    raise HTTPException(status_code=404, detail="cliente no encontrado")
 
 
 
