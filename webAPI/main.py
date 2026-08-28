@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from typing import List
-from routers.messages import router
+from routers import messages
 
 app=FastAPI()
 
-app.include_router(router, prefix="/messages", tags=["messages"])
+app.include_router(messages.router, prefix="/messages", tags=["messages"])
 
 @app.get('/')
 async def read_data():
