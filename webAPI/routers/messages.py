@@ -1,18 +1,15 @@
 from models. message import Message
 from typing import List
 from fastapi import APIRouter
+from services.messages_service import MessageService
+from fastapi import Depends
+from depends.message_depends import get_messages_service
 
-
-simple_messages: List[Message]=[
-    Message(id=1, text="Aprendiendo..."),
-    Message(id=2, text="..fastApi..."),
-    Message(id=3, text="... con Python")
-]
 
 router=APIRouter()
 
 
 
 @router.get("/", response_model=List[Message])
-async def list_messages():
-    return simple_messages 
+async def list_messages(service: MessageService= Depends(get_messages_service)):
+    return service.find_all()
