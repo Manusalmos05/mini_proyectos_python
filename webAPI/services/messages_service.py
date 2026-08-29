@@ -1,7 +1,18 @@
 from typing import List
 from models.message import Message
-class MessageService:
+from abc import ABC, abstractmethod
 
+
+
+
+
+#clase generica
+class MessageService(ABC):
+    @abstractmethod
+    def find_all(self) -> List[Message]:
+            ...
+
+class MessageServiceImpl(MessageService):
     def __init__(self):
         self._messages: List[Message]=[
             Message(id=1, text="Aprendiendo..."),
@@ -9,5 +20,8 @@ class MessageService:
             Message(id=3, text="... con Python"),
             Message(id=4, text="prueba con Depends")
         ]
+
     def find_all(self) -> List[Message]:
-        return self._messages
+                return self._messages
+
+    

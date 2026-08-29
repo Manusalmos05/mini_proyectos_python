@@ -1,4 +1,4 @@
-from services.messages_service import MessageService
+from services.messages_service import MessageServiceImpl, MessageService
 
 def get_messages_service() -> MessageService:
-    return MessageService()
+    return MessageServiceImpl()
