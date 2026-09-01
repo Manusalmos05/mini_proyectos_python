@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from models.message import Message
 from abc import ABC, abstractmethod
 
@@ -12,16 +12,15 @@ class MessageService(ABC):
     def find_all(self) -> List[Message]:
             ...
 
-class MessageServiceImpl(MessageService):
-    def __init__(self):
-        self._messages: List[Message]=[
-            Message(id=1, text="Aprendiendo..."),
-            Message(id=2, text="..fastApi..."),
-            Message(id=3, text="... con Python"),
-            Message(id=4, text="prueba con Depends")
-        ]
+    @abstractmethod
+    def find_by_id(self,message_id:int)-> Optional[Message]:
+           ...
 
-    def find_all(self) -> List[Message]:
-                return self._messages
+
+
+
+
+
+
 
     
