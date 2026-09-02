@@ -17,10 +17,15 @@ class MessageService(ABC):
            ...
 
 
+    @abstractmethod
+    def create(self, new_message: Message) -> Message:
+            ...
 
 
+    @abstractmethod
+    def update(self, message_id:int, message:Message)-> Optional[Message]:
+            ... 
 
-
-
-
-    
+    @abstractmethod
+    def delete(self, message_id:int)-> bool:
+            ...
