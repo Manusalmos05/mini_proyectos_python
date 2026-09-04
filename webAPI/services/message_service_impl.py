@@ -1,5 +1,4 @@
 from typing import List, Optional
-from fastapi import HTTPException
 from models.message import Message
 from services.messages_service import MessageService
 
@@ -7,10 +6,10 @@ from services.messages_service import MessageService
 class MessageServiceImpl(MessageService):
     def __init__(self):
         self._messages: List[Message]=[
-            Message(id=1, text="Aprendiendo..."),
-            Message(id=2, text="..fastApi..."),
-            Message(id=3, text="... con Python"),
-            Message(id=4, text="prueba con Depends")
+            Message(id=1, text="hacer la compra", author_email="user1@example.com", priority=3),
+            Message(id=2, text="limpiar la casa", author_email="user2@example.com", priority=2),
+            Message(id=3, text="estudiar Python", author_email="user3@example.com", priority=4),
+            Message(id=4, text="sacar la basura", author_email="user4@example.com", priority=1)
         ]
         self._next_id = 5
 
@@ -30,7 +29,10 @@ class MessageServiceImpl(MessageService):
     def update(self, message_id:int, message:Message)-> Optional[Message]:
         for index, msg in enumerate(self._messages):
             if msg.id==message_id:
-                updated=Message(id=message_id, text=message.text)
+                updated=Message(id=message_id, 
+                                text=message.text, 
+                                author_email=message.author_email, 
+                                priority=message.priority)
                 self._messages[index]=updated
                 return updated
         return None
