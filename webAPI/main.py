@@ -2,6 +2,11 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from routers import messages
+from config.db import engine, Base
+import entities
+
+
+Base.metadata.create_all(bind=engine)
 
 app=FastAPI()
 

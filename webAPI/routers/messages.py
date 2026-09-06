@@ -4,7 +4,7 @@ from typing import List, Optional
 from fastapi import APIRouter, HTTPException, Query,status
 from services.messages_service import MessageService
 from fastapi import Depends
-from depends.message_depends import get_messages_service
+from dependendecies.message_depends import get_messages_service
 
 
 router=APIRouter()
