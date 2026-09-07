@@ -20,7 +20,6 @@ class SqlAlchemyMessageRepository(MessageRepository):
 
     def save(self, message:Message)-> Message:
         self._db.add(message)
-        self._db.refresh(message)
         return message
 
     def delete(self, message:Message):
