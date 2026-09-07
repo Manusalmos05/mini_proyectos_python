@@ -13,7 +13,7 @@ class SqlAlchemyMessageRepository(MessageRepository):
 
     def find_all(self)-> List[Message]:
         selected =select(Message).order_by(Message.id.asc())
-        return list(self._db.scalar(selected).all())
+        return list(self._db.scalars(selected).all())
 
     def find_by_id(self, message_id:int)-> Message |None:
         return self._db.get(Message, message_id)

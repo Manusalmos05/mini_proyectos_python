@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from repositories.sql_alchemy_message_repo import SqlAlchemyMessageRepository
 from fastapi.params import Depends
 from repositories.message_repository import MessageRepository
+from services.sql_alchemy_message_service import SqlAlchemyMessageService
 
 
 def get_db():
@@ -21,6 +22,6 @@ def get_message_repository(db: Session= Depends(get_db))->MessageRepository:
 
 #@lru_cache ## persistencia del url durante toda la sesión de la aplicación
 def get_messages_service(repo: MessageRepository= Depends(get_message_repository),db: Session= Depends(get_db)) -> MessageService:
-    return (repo, db)
+    return SqlAlchemyMessageService(repo, db)
 
     

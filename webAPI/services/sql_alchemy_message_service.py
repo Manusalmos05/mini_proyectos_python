@@ -19,10 +19,13 @@ class SqlAlchemyMessageService(MessageService):
         self._db=db
         
     def find_all(self)-> List[MessageDto]:
-        return self._repo.find_all()
+        return [entity_to_Dto(m) for m in self._repo.find_all()]
 
     def find_by_id(self, message_id:int)-> Optional[MessageDto]:
-        return self._repo.find_by_id(message_id)
+        entity=self._repo.find_by_id(message_id)
+        if not entity:
+            return None
+        return entity_to_Dto(entity) 
 
     def create(self, new_message: MessageDto)->MessageDto:
         entity=MessageEntity(

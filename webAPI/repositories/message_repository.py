@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
-from repositories.sql_alchemy_message_repo import SqlAlchemyMessageRepository
+
 from entities.message import Message
 
 class MessageRepository(ABC): 
