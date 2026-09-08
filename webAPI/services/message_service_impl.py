@@ -5,13 +5,8 @@ from services.messages_service import MessageService
 
 class MessageServiceImpl(MessageService):
     def __init__(self):
-        self._messages: List[Message]=[
-            Message(id=1, text="hacer la compra", author_email="user1@example.com", priority=3),
-            Message(id=2, text="limpiar la casa", author_email="user2@example.com", priority=2),
-            Message(id=3, text="estudiar Python", author_email="user3@example.com", priority=4),
-            Message(id=4, text="sacar la basura", author_email="user4@example.com", priority=1)
-        ]
-        self._next_id = 5
+        self._messages: List[Message]=[]
+        self._next_id = 0
 
     def find_all(self) -> List[Message]:
         #print(f"Service ID: {id(self)}")
