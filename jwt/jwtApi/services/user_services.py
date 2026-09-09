@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
+from schemas.user_request import UserRequest
 from schemas.user_dto import UserDto
 
 class UserService(ABC):
@@ -18,5 +19,5 @@ class UserService(ABC):
         pass
 
     @abstractmethod
-    def crete_user(self, user:UserDto)->UserDto:
+    def create_user(self, user:UserRequest)->UserDto:
         pass
