@@ -1,11 +1,9 @@
 from sqlalchemy.orm import Session
 from fastapi.params import Depends
 from config.db import SessionLocal
-from jwtApi.repositories import sqlAlchemy_userRepository
-from jwtApi.services.userServicesImple import UserServiceImpl
-from jwtApi.services.user_services import UserService
-
-
+from repositories.sqlAlchemy_userRepository import SqlAlchemyUserRepository
+from services.userServicesImple import UserServiceImpl
+from services.user_services import UserService
 
 def get_db():
     db=SessionLocal()
@@ -18,4 +16,4 @@ def get_db():
 
 
 def get_service(db: Session=Depends(get_db))->UserService:
-    return UserServiceImpl(sqlAlchemy_userRepository(db), db)
+    return UserServiceImpl(SqlAlchemyUserRepository(db), db)

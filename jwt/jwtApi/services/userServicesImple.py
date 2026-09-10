@@ -1,6 +1,6 @@
 import email
 
-from jwtApi.repositories.user_repositorio import UserRepository
+from repositories.user_repositorio import UserRepository
 from schemas.user_dto import UserDto
 from schemas.user_request import UserRequest
 from services.user_services import UserService
@@ -40,6 +40,7 @@ class UserServiceImpl(UserService):
 
         try:
             self._repo.crete_user(user_entity)
+            self._db.add(user_entity)
             self._db.commit()
             self._db.refresh(user_entity)
             return UserDto.model_validate(user_entity)

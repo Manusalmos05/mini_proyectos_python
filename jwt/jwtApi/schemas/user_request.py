@@ -3,4 +3,4 @@ from pydantic import BaseModel, EmailStr, Field
 
 class UserRequest(BaseModel):
     email:EmailStr
-    password: str= Field(..., min_length=6, max_length=64)
+    password: str= Field(..., min_length=4, max_length=64)
