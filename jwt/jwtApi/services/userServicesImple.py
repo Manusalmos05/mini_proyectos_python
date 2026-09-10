@@ -1,5 +1,5 @@
-import email
 
+from security.passwords import hash_password
 from repositories.user_repositorio import UserRepository
 from schemas.user_dto import UserDto
 from schemas.user_request import UserRequest
@@ -36,7 +36,7 @@ class UserServiceImpl(UserService):
         if self._repo.find_by_email(user.email):
             raise ValueError('El email ya está asociado a una cuenta')
 
-        user_entity=UserEntity(email=user.email,password=user.password)
+        user_entity=UserEntity(email=user.email,password=hash_password(user.password))
 
         try:
             self._repo.crete_user(user_entity)
