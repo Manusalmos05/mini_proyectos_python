@@ -21,6 +21,6 @@ try:
 		web_element,
 		"wf-energy.com",
 	)
-	time.sleep(120)
+	time.sleep(30)
 finally:
 	driver.quit()
