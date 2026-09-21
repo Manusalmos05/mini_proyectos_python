@@ -1,23 +1,22 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
+from fastapi.params import Depends
 from config.db import engine, Base
+from middlewares.security_middleware import security_middleware
+from middlewares.timing_middleware import timing_middleware
 from routers import auth,users
-import time
+from fastapi.security import HTTPBearer
 app= FastAPI()
 
 Base.metadata.create_all(bind=engine)
 
-app.include_router(users.router, prefix="/users", tags=['users'])
+bearer= HTTPBearer()
+
+app.include_router(users.router, prefix="/users", tags=['users'], dependencies=[Depends(bearer)])
 app.include_router(auth.router, prefix="/auth",tags=['auth'])
 
 
-@app.middleware("http")
-async def timing_middleware(request: Request, call_next):
+app.middleware("http")(timing_middleware)
+app.middleware("http")(security_middleware)
 
-    start_time=time.time()
-    response=await call_next(request)
-    process_time=time.time()-start_time
-    response.headers["X-Process-Time"]=f"{process_time:.4f}s"
-    print(f"{request.method} {request.url.path} -> {response.status_code}: {process_time: .4f}s")
-    return response
 
 

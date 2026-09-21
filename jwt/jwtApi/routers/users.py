@@ -11,6 +11,9 @@ from services.user_services import UserService
 
 router=APIRouter()
 
+
+
+
 @router.get("/", response_model=List[UserDto])
 def list_users(service: UserService=Depends(get_service),
             current_user: UserEntity=Depends(get_current_user)):
